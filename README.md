@@ -5,7 +5,7 @@ Personal portfolio site, live at **https://saziaparween89.github.io**
 Plain HTML + CSS (no build step), hosted free on GitHub Pages.
 
 - `index.html` — the whole site
-- `assets/` — project charts and résumé PDF
+- `assets/` — profile photo, project charts and résumé PDF
 
 Projects featured:
 - [Support Ticket AI](https://github.com/saziaparween89/support-ticket-ai)

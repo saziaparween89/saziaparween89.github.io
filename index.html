@@ -68,7 +68,12 @@ nav.top .wrap { display: flex; align-items: center; justify-content: space-betwe
 .hero { padding-block: clamp(48px, 8vw, 96px) 56px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
 .hero > * { min-width: 0; }
 @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
-.hero h1 { font-size: var(--step-4); font-weight: 800; margin-top: 18px; }
+.hero h1 { font-size: var(--step-4); font-weight: 800; margin-top: 22px; }
+.intro { display: flex; align-items: center; gap: 16px; }
+.avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; flex: none;
+  border: 2px solid var(--teal); padding: 3px; background: var(--ink); }
+.intro .who { display: grid; gap: 6px; }
+.intro .name { font: 600 1.1rem/1.2 var(--display); color: var(--fg); }
 .hero h1 em { font-style: normal; color: var(--teal); }
 .hero .lede { margin-top: 20px; font-size: var(--step-1); color: #c6cdd8; max-width: 34ch; line-height: 1.55; }
 .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
@@ -197,7 +202,10 @@ footer { padding-block: 0 40px; color: var(--muted); font: 400 0.78rem/1.5 var(-
   <div class="wrap">
     <header class="hero">
       <div>
-        <p class="label">Data Analyst · Bangalore</p>
+        <div class="intro">
+          <img class="avatar" src="assets/sazia-parween.jpg" alt="Portrait of Sazia Parween" width="88" height="88">
+          <div class="who"><p class="name">Sazia Parween</p><p class="label">Data Analyst · Bangalore</p></div>
+        </div>
         <h1>I turn messy operations data into <em>decisions</em>.</h1>
         <p class="lede">Hi, I'm Sazia. I clean the data, query it in SQL, build the dashboard, and when it helps, add a machine-learning model that tells the team what to do next.</p>
         <div class="cta">
