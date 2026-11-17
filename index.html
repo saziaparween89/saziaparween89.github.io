@@ -177,7 +177,8 @@ section.block { padding-block: clamp(56px, 8vw, 96px) 0; }
 .contact p { color: #c6cdd8; margin-top: 14px; max-width: 46ch; }
 .mail { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--ink-2); border: 1px solid var(--ink-3); border-radius: 10px; padding: 12px 14px; }
 .mail code { font: 500 0.95rem/1.3 var(--mono); color: var(--fg); user-select: all; overflow-wrap: anywhere; flex: 1; min-width: 0; }
-.mail button { font: 600 0.8rem/1 var(--body); padding: 8px 12px; border-radius: 6px; background: var(--teal); color: #06231f; border: 0; cursor: pointer; }
+.mail button, .mail .call { font: 600 0.8rem/1 var(--body); padding: 8px 12px; border-radius: 6px; background: var(--teal); color: #06231f; border: 0; cursor: pointer; }
+.mail .call { text-decoration: none; }
 .contact .side { display: grid; gap: 12px; }
 .contact .side .links-row { display: flex; gap: 10px; flex-wrap: wrap; }
 @media (max-width: 760px) { .contact { grid-template-columns: 1fr; } }
@@ -379,12 +380,16 @@ footer { padding-block: 0 40px; color: var(--muted); font: 400 0.78rem/1.5 var(-
       <div>
         <p class="label">Open to Data Analyst, MIS Analyst and Reporting Analyst roles</p>
         <h2 id="contact-h" style="margin-top:14px">Let's talk about your data.</h2>
-        <p>I'm based in Bangalore and available to join immediately. The quickest way to reach me is email.</p>
+        <p>I'm based in Bangalore and available to join immediately. Reach me by email or phone.</p>
       </div>
       <div class="side">
         <div class="mail">
           <code id="email">saziaparween89@gmail.com</code>
           <button type="button" id="copy-email">Copy</button>
+        </div>
+        <div class="mail">
+          <code id="phone">+91 79090 15014</code>
+          <a class="call" href="tel:+917909015014">Call</a>
         </div>
         <div class="links-row">
           <a class="btn" href="mailto:saziaparween89@gmail.com">Email me</a>
