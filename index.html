@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sazia Parween Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Sazia Parween — Data Analyst in Bangalore. SQL, Python, Power BI and applied machine learning projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a single reading column (max 1080px); the hero is a SQL query whose result row is Sazia,
+   projects read as case files with a "paper" chart panel set against the dark ink ground. */
+:root {
+  --ink: #0c1016;          /* page ground, blue-biased near-black */
+  --ink-2: #131922;        /* raised surface */
+  --ink-3: #1b2330;        /* lines, inputs */
+  --paper: #eef1f5;        /* chart panels: charts are printed on light paper */
+  --fg: #e7ebf1;
+  --muted: #94a0b2;
+  --teal: #4fd1c1;         /* single accent: query/result highlight */
+  --amber: #f2b45b;        /* numbers inside SQL only */
+  --rose: #ff8a8a;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --step--1: 0.84rem; --step-0: 1rem; --step-1: 1.2rem; --step-2: 1.6rem; --step-3: 2.2rem; --step-4: clamp(2.5rem, 6vw, 4.1rem);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body {
+  margin: 0; background: var(--ink); color: var(--fg);
+  font: 400 var(--step-0)/1.65 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+a { color: var(--teal); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+.label {
+  font: 500 var(--step--1)/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ---------- nav ---------- */
+nav.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--ink-3);
+}
+nav.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.brand { font: 700 1.05rem/1 var(--display); color: var(--fg); text-decoration: none; letter-spacing: 0; }
+.brand span { color: var(--teal); }
+.links { display: flex; gap: 22px; flex-wrap: wrap; }
+.links a { color: var(--muted); text-decoration: none; font-size: var(--step--1); font-weight: 500; }
+.links a:hover { color: var(--fg); }
+@media (max-width: 560px) { .links a:not(.keep) { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(48px, 8vw, 96px) 56px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero > * { min-width: 0; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+.hero h1 { font-size: var(--step-4); font-weight: 800; margin-top: 18px; }
+.hero h1 em { font-style: normal; color: var(--teal); }
+.hero .lede { margin-top: 20px; font-size: var(--step-1); color: #c6cdd8; max-width: 34ch; line-height: 1.55; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px;
+  font: 600 0.95rem/1 var(--body); text-decoration: none; border: 1px solid var(--ink-3); color: var(--fg); background: var(--ink-2);
+  transition: border-color .2s, transform .2s;
+}
+.btn:hover { border-color: var(--teal); transform: translateY(-1px); }
+.btn.primary { background: var(--teal); color: #06231f; border-color: var(--teal); }
+.btn svg { width: 16px; height: 16px; }
+
+/* the query console */
+.console { background: var(--ink-2); border: 1px solid var(--ink-3); border-radius: 12px; overflow: hidden; box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
+.console header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--ink-3); }
+.console header .label { font-size: 0.72rem; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); margin-right: 8px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--teal) 18%, transparent); }
+.sql { margin: 0; padding: 16px 18px; font: 400 0.86rem/1.7 var(--mono); color: #cdd5e0; overflow-x: auto; white-space: pre; }
+.kw { color: var(--teal); } .str { color: #9fd59a; } .num { color: var(--amber); } .cm { color: #6b778a; }
+.result { border-top: 1px dashed var(--ink-3); overflow-x: auto; }
+.result table { width: 100%; border-collapse: collapse; font: 400 0.8rem/1.4 var(--mono); }
+.result th, .result td { text-align: left; padding: 9px 14px; white-space: nowrap; }
+.result th { color: var(--muted); font-weight: 500; border-bottom: 1px solid var(--ink-3); }
+.result td { color: var(--fg); }
+.result td.hl { color: var(--teal); }
+.result-foot { padding: 8px 14px 12px; font: 400 0.72rem/1 var(--mono); color: var(--muted); }
+
+/* ---------- facts strip ---------- */
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--ink-3); }
+.facts div { padding: 22px 18px; border-right: 1px solid var(--ink-3); min-width: 0; }
+.facts div:last-child { border-right: 0; }
+.facts b { display: block; font: 700 var(--step-3)/1 var(--display); font-variant-numeric: tabular-nums; }
+.facts span { display: block; margin-top: 8px; color: var(--muted); font-size: var(--step--1); line-height: 1.4; }
+@media (max-width: 720px) { .facts { grid-template-columns: repeat(2, 1fr); } .facts div:nth-child(2) { border-right: 0; } .facts div:nth-child(-n+2) { border-bottom: 1px solid var(--ink-3); } }
+
+section.block { padding-block: clamp(56px, 8vw, 96px) 0; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+.section-head h2 { font-size: var(--step-3); font-weight: 700; }
+
+/* ---------- case files ---------- */
+.case { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--ink-3); border-radius: 14px; overflow: hidden; background: var(--ink-2); }
+.case + .case { margin-top: 28px; }
+.case > * { min-width: 0; }
+@media (max-width: 900px) { .case { grid-template-columns: 1fr; } }
+.case .text { padding: clamp(22px, 3.5vw, 36px); display: flex; flex-direction: column; gap: 18px; }
+.case .meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.case h3 { font-size: var(--step-2); font-weight: 700; }
+.case .problem { color: #c6cdd8; max-width: 60ch; }
+.metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.metric { border: 1px solid var(--ink-3); border-radius: 10px; padding: 12px; background: var(--ink); min-width: 0; }
+.metric b { display: block; font: 700 1.45rem/1.05 var(--display); color: var(--teal); font-variant-numeric: tabular-nums; }
+.metric span { display: block; margin-top: 6px; font-size: 0.78rem; line-height: 1.35; color: var(--muted); }
+@media (max-width: 420px) { .metrics { grid-template-columns: 1fr 1fr; } }
+.did { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.did li { position: relative; padding-left: 20px; color: #d3d9e2; font-size: 0.95rem; line-height: 1.5; }
+.did li::before { content: "›"; position: absolute; left: 2px; color: var(--teal); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 0.74rem/1 var(--mono); padding: 6px 8px; border-radius: 6px; background: var(--ink-3); color: #c9d1dc; }
+.case .links-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+.paper { background: var(--paper); display: grid; grid-template-rows: 1fr auto; gap: 0; border-left: 1px solid var(--ink-3); }
+@media (max-width: 900px) { .paper { border-left: 0; border-top: 1px solid var(--ink-3); } }
+.paper figure { margin: 0; padding: 18px; display: grid; gap: 10px; align-content: center; }
+.paper img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.paper figcaption { font: 400 0.78rem/1.45 var(--mono); color: #3d4757; }
+.tabs { display: flex; border-top: 1px solid #d5dbe4; }
+.tabs button {
+  flex: 1; padding: 11px 8px; background: transparent; border: 0; border-right: 1px solid #d5dbe4; cursor: pointer;
+  font: 500 0.76rem/1.2 var(--mono); color: #556072;
+}
+.tabs button:last-child { border-right: 0; }
+.tabs button[aria-selected="true"] { color: #0c1016; background: #dfe5ec; }
+
+/* ---------- more work ---------- */
+.more { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 28px; }
+.more article { border: 1px solid var(--ink-3); border-radius: 12px; padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.more h4 { margin: 0; font: 600 1.05rem/1.3 var(--display); }
+.more p { color: var(--muted); font-size: 0.93rem; }
+@media (max-width: 720px) { .more { grid-template-columns: 1fr; } }
+
+/* ---------- skills ---------- */
+.skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--ink-3); }
+.skills > div { padding: 22px 22px 26px 0; border-bottom: 1px solid var(--ink-3); min-width: 0; }
+.skills h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 12px; }
+@media (max-width: 820px) { .skills { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .skills { grid-template-columns: 1fr; } }
+
+/* ---------- experience ---------- */
+.timeline { display: grid; gap: 0; }
+.row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding-block: 26px; border-top: 1px solid var(--ink-3); }
+.row > * { min-width: 0; }
+.row .when { font: 500 0.84rem/1.5 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.row h3 { font-size: var(--step-1); font-weight: 600; }
+.row .org { color: var(--teal); font-weight: 500; margin-top: 4px; }
+.row .did { margin-top: 14px; }
+@media (max-width: 640px) { .row { grid-template-columns: 1fr; gap: 8px; } }
+
+/* ---------- contact ---------- */
+.contact { margin-top: clamp(56px, 8vw, 96px); border-top: 1px solid var(--ink-3); padding-block: 56px 40px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: end; }
+.contact > * { min-width: 0; }
+.contact h2 { font-size: var(--step-3); }
+.contact p { color: #c6cdd8; margin-top: 14px; max-width: 46ch; }
+.mail { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--ink-2); border: 1px solid var(--ink-3); border-radius: 10px; padding: 12px 14px; }
+.mail code { font: 500 0.95rem/1.3 var(--mono); color: var(--fg); user-select: all; overflow-wrap: anywhere; flex: 1; min-width: 0; }
+.mail button { font: 600 0.8rem/1 var(--body); padding: 8px 12px; border-radius: 6px; background: var(--teal); color: #06231f; border: 0; cursor: pointer; }
+.contact .side { display: grid; gap: 12px; }
+.contact .side .links-row { display: flex; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 760px) { .contact { grid-template-columns: 1fr; } }
+footer { padding-block: 0 40px; color: var(--muted); font: 400 0.78rem/1.5 var(--mono); }
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top">sazia<span>.</span>parween</a>
+    <div class="links">
+      <a href="#projects" class="keep">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact" class="keep">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+  <div class="wrap">
+    <header class="hero">
+      <div>
+        <p class="label">Data Analyst · Bangalore</p>
+        <h1>I turn messy operations data into <em>decisions</em>.</h1>
+        <p class="lede">Hi, I'm Sazia. I clean the data, query it in SQL, build the dashboard, and when it helps, add a machine-learning model that tells the team what to do next.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">See the projects</a>
+          <a class="btn" href="https://github.com/saziaparween89" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            GitHub
+          </a>
+          <a class="btn" href="assets/Sazia_Parween_Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+        </div>
+      </div>
+
+      <div class="console" aria-label="SQL query returning Sazia's profile">
+        <header><span class="label"><span class="dot"></span>hiring.sql</span><span class="label">SQLite</span></header>
+<pre class="sql"><span class="kw">SELECT</span> name, role, core_tools, open_to
+<span class="kw">FROM</span>   analysts
+<span class="kw">WHERE</span>  city = <span class="str">'Bangalore'</span>
+  <span class="kw">AND</span>  sql_skill <span class="kw">AND</span> python_skill
+  <span class="kw">AND</span>  ships_end_to_end_projects = <span class="num">1</span>
+<span class="kw">ORDER BY</span> curiosity <span class="kw">DESC</span>
+<span class="kw">LIMIT</span>  <span class="num">1</span>;  <span class="cm">-- found her</span></pre>
+        <div class="result">
+          <table>
+            <thead><tr><th>name</th><th>role</th><th>core_tools</th><th>open_to</th></tr></thead>
+            <tbody><tr><td class="hl">Sazia Parween</td><td>Data Analyst</td><td>SQL · Python · Power BI</td><td>Analyst / MIS roles</td></tr></tbody>
+          </table>
+        </div>
+        <p class="result-foot">1 row returned in 0.002 s</p>
+      </div>
+    </header>
+
+    <div class="facts" role="list">
+      <div role="listitem"><b>1 yr</b><span>analytics &amp; MIS reporting at Concentrix</span></div>
+      <div role="listitem"><b>16k+</b><span>records cleaned and modelled across two AI projects</span></div>
+      <div role="listitem"><b>0.85</b><span>ROC-AUC of the churn model on unseen customers</span></div>
+      <div role="listitem"><b>3.4×</b><span>more campaign value from AI-targeted retention offers</span></div>
+    </div>
+
+    <!-- ================= PROJECTS ================= -->
+    <section class="block" id="projects" aria-labelledby="projects-h">
+      <div class="section-head">
+        <h2 id="projects-h">Projects</h2>
+        <p class="label">Each one: raw data → SQL → model → app</p>
+      </div>
+
+      <article class="case">
+        <div class="text">
+          <div class="meta"><span class="label">Customer support · NLP</span><span class="label">Python · SQL · Streamlit</span></div>
+          <h3>Support Ticket AI</h3>
+          <p class="problem">A support team handles ~1,500 tickets a month, routes them by hand and sees one in four escalate to a manager. I built three models that route each ticket, read the customer's mood and flag the ones likely to escalate, so team leads can step in early.</p>
+          <div class="metrics">
+            <div class="metric"><b>92%</b><span>routing accuracy across 6 teams</span></div>
+            <div class="metric"><b>45%</b><span>of escalations caught in the riskiest 20% of tickets</span></div>
+            <div class="metric"><b>58%</b><span>escalation rate on a 3rd+ contact vs 10% on the first</span></div>
+          </div>
+          <ul class="did">
+            <li>Cleaned a 9,120-row CRM export: duplicates, three date formats, 559 inconsistent labels, impossible response times</li>
+            <li>Wrote 8 KPI queries in SQL with CTEs and window functions</li>
+            <li>Compared Naive Bayes, Logistic Regression and Linear SVM with a time-based train/test split</li>
+            <li>Shipped a Streamlit app: live ticket analyser, ops dashboard, CSV batch scoring</li>
+          </ul>
+          <div class="chips"><span class="chip">pandas</span><span class="chip">scikit-learn</span><span class="chip">TF-IDF</span><span class="chip">SQLite</span><span class="chip">Streamlit</span><span class="chip">Plotly</span></div>
+          <div class="links-row">
+            <a class="btn primary" href="https://github.com/saziaparween89/support-ticket-ai" target="_blank" rel="noopener">View code</a>
+            <a class="btn" href="https://github.com/saziaparween89/support-ticket-ai/blob/main/notebooks/analysis.ipynb" target="_blank" rel="noopener">Read the analysis</a>
+          </div>
+        </div>
+        <div class="paper" data-gallery>
+          <figure>
+            <img src="assets/ticket-escalation-gains.png" alt="Cumulative gains chart: reviewing the top 20% riskiest tickets catches about 45% of escalations" loading="lazy" width="975" height="825">
+            <figcaption>Ranking tickets by predicted risk finds escalations far faster than random review.</figcaption>
+          </figure>
+          <div class="tabs" role="tablist" aria-label="Support Ticket AI charts">
+            <button role="tab" aria-selected="true" data-src="assets/ticket-escalation-gains.png" data-cap="Ranking tickets by predicted risk finds escalations far faster than random review." data-alt="Cumulative gains chart for escalation risk">Escalation risk</button>
+            <button role="tab" aria-selected="false" data-src="assets/ticket-repeat-contacts.png" data-cap="Each repeat contact raises the chance of escalation. First-contact resolution is the biggest lever." data-alt="Bar chart of escalation rate by number of previous contacts">Repeat contacts</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="text">
+          <div class="meta"><span class="label">Telecom · Explainable ML</span><span class="label">Python · SQL · SHAP</span></div>
+          <h3>Customer Churn Prediction</h3>
+          <p class="problem">A telecom firm loses 26.5% of its customers and 30% of its monthly revenue. I predicted who will leave, explained why for each customer with SHAP, and chose who to target by profit rather than accuracy.</p>
+          <div class="metrics">
+            <div class="metric"><b>0.85</b><span>ROC-AUC on the hold-out test set</span></div>
+            <div class="metric"><b>83%</b><span>of churners flagged at the profit-optimal threshold</span></div>
+            <div class="metric"><b>$45.5k</b><span>net campaign value vs $13.4k contacting everyone</span></div>
+          </div>
+          <ul class="did">
+            <li>Found that 11 blank "TotalCharges" were new, unbilled customers and set them to 0 instead of a misleading average</li>
+            <li>Segment analysis in SQL: new month-to-month fibre customers churn at 70%</li>
+            <li>Compared Logistic Regression, Random Forest and XGBoost with 5-fold cross-validation</li>
+            <li>Produced a ranked retention list of 1,588 customers with a recommended offer for each</li>
+          </ul>
+          <div class="chips"><span class="chip">pandas</span><span class="chip">scikit-learn</span><span class="chip">XGBoost</span><span class="chip">SHAP</span><span class="chip">SQLite</span><span class="chip">Streamlit</span></div>
+          <div class="links-row">
+            <a class="btn primary" href="https://github.com/saziaparween89/customer-churn-prediction" target="_blank" rel="noopener">View code</a>
+            <a class="btn" href="https://github.com/saziaparween89/customer-churn-prediction/blob/main/notebooks/analysis.ipynb" target="_blank" rel="noopener">Read the analysis</a>
+          </div>
+        </div>
+        <div class="paper" data-gallery>
+          <figure>
+            <img src="assets/churn-profit-threshold.png" alt="Line chart of net campaign value against the churn-risk threshold, peaking at a threshold of 0.24" loading="lazy" width="1100" height="704">
+            <figcaption>The cut-off for sending an offer is set where the campaign earns the most, not at the default 0.5.</figcaption>
+          </figure>
+          <div class="tabs" role="tablist" aria-label="Churn charts">
+            <button role="tab" aria-selected="true" data-src="assets/churn-profit-threshold.png" data-cap="The cut-off for sending an offer is set where the campaign earns the most, not at the default 0.5." data-alt="Net campaign value against churn-risk threshold">Profit threshold</button>
+            <button role="tab" aria-selected="false" data-src="assets/churn-shap-drivers.png" data-cap="SHAP shows contract type, tenure and fibre internet drive churn the most." data-alt="Bar chart of the top 12 churn drivers by mean SHAP value">Churn drivers</button>
+          </div>
+        </div>
+      </article>
+
+      <div class="more">
+        <article>
+          <span class="label">Power BI · Tableau · Python</span>
+          <h4>Traffic Accident Risk Analysis</h4>
+          <p>Cleaned accident records, found risk patterns by weather, road condition and time of day, and mapped high-risk zones in interactive Power BI and Tableau dashboards.</p>
+        </article>
+        <article>
+          <span class="label">Excel · Power BI · SQL</span>
+          <h4>Customer Support Operations Dashboard</h4>
+          <p>Tracks ticket volume, turnaround time, resolution status and query categories, built from contact-centre KPIs I reported on daily at Concentrix.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section class="block" id="skills" aria-labelledby="skills-h">
+      <div class="section-head"><h2 id="skills-h">Toolkit</h2><p class="label">What I use, and for what</p></div>
+      <div class="skills">
+        <div><h3>Querying</h3><div class="chips"><span class="chip">SQL</span><span class="chip">Joins</span><span class="chip">CTEs</span><span class="chip">Window functions</span><span class="chip">Subqueries</span></div></div>
+        <div><h3>Python</h3><div class="chips"><span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">Matplotlib</span><span class="chip">Plotly</span><span class="chip">Jupyter</span></div></div>
+        <div><h3>Machine learning</h3><div class="chips"><span class="chip">scikit-learn</span><span class="chip">XGBoost</span><span class="chip">SHAP</span><span class="chip">NLP / TF-IDF</span><span class="chip">Model evaluation</span></div></div>
+        <div><h3>BI &amp; dashboards</h3><div class="chips"><span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Looker Studio</span><span class="chip">Streamlit</span></div></div>
+        <div><h3>Excel &amp; reporting</h3><div class="chips"><span class="chip">Pivot tables</span><span class="chip">XLOOKUP</span><span class="chip">INDEX-MATCH</span><span class="chip">MIS reports</span><span class="chip">KPI tracking</span></div></div>
+        <div><h3>Working with people</h3><div class="chips"><span class="chip">Stakeholder updates</span><span class="chip">Requirement gathering</span><span class="chip">Documentation</span><span class="chip">Git &amp; GitHub</span></div></div>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section class="block" id="experience" aria-labelledby="exp-h">
+      <div class="section-head"><h2 id="exp-h">Experience &amp; education</h2></div>
+      <div class="timeline">
+        <div class="row">
+          <p class="when">Aug 2022 – Aug 2023</p>
+          <div>
+            <h3>Data Analyst</h3>
+            <p class="org">Concentrix · Bangalore</p>
+            <ul class="did">
+              <li>Collected, cleaned and validated operational and customer data from CRM and process systems</li>
+              <li>Prepared daily, weekly and monthly MIS reports on call volume, average handling time, resolution rate and quality scores</li>
+              <li>Built Excel and Power BI dashboards that team leads used to track performance against targets</li>
+              <li>Analysed trends in customer queries and escalations and recommended process improvements</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <p class="when">Certification</p>
+          <div><h3>Data Analytics Certification</h3><p class="org">360DigiTMG</p></div>
+        </div>
+        <div class="row">
+          <p class="when">2014 – 2017</p>
+          <div><h3>Bachelor of Commerce (B.Com)</h3><p class="org">Vinoba Bhave University, Hazaribagh</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="contact" id="contact" aria-labelledby="contact-h">
+      <div>
+        <p class="label">Open to Data Analyst, MIS Analyst and Reporting Analyst roles</p>
+        <h2 id="contact-h" style="margin-top:14px">Let's talk about your data.</h2>
+        <p>I'm based in Bangalore and available to join immediately. The quickest way to reach me is email.</p>
+      </div>
+      <div class="side">
+        <div class="mail">
+          <code id="email">saziaparween89@gmail.com</code>
+          <button type="button" id="copy-email">Copy</button>
+        </div>
+        <div class="links-row">
+          <a class="btn" href="mailto:saziaparween89@gmail.com">Email me</a>
+          <a class="btn" href="https://github.com/saziaparween89" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="assets/Sazia_Parween_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        </div>
+      </div>
+    </section>
+    <footer>© 2026 Sazia Parween · Built with HTML &amp; CSS, hosted on GitHub Pages</footer>
+  </div>
+</main>
+
+<script>
+  // Chart switcher inside each project's paper panel
+  document.querySelectorAll("[data-gallery]").forEach(function (panel) {
+    var img = panel.querySelector("img"), cap = panel.querySelector("figcaption");
+    panel.querySelectorAll(".tabs button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        panel.querySelectorAll(".tabs button").forEach(function (b) { b.setAttribute("aria-selected", "false"); });
+        btn.setAttribute("aria-selected", "true");
+        img.src = btn.dataset.src; img.alt = btn.dataset.alt; cap.textContent = btn.dataset.cap;
+      });
+    });
+  });
+  // Copy email
+  document.getElementById("copy-email").addEventListener("click", function () {
+    var btn = this, text = document.getElementById("email").textContent;
+    function done(ok) { btn.textContent = ok ? "Copied" : "Select & copy"; setTimeout(function () { btn.textContent = "Copy"; }, 1800); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById("email"));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done(false);
+    }
+    try { navigator.clipboard.writeText(text).then(function () { done(true); }, fallback); } catch (e) { fallback(); }
+  });
+</script>
+
+</body>
+</html>
